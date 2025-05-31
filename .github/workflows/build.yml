@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Release tag'
+        description: 'Release tag (e.g., v1.0.0)'
         required: true
         type: string
 
@@ -40,7 +40,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: target/i686-unknown-linux-gnu/release/libgm_maskfs.so
-          tag_name: ${{ github.ref }}
+          tag_name: ${{ github.event.inputs.tag || github.ref }}
           name: gmsv_gm_maskfs_linux.dll
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -64,7 +64,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: target/x86_64-unknown-linux-gnu/release/libgm_maskfs.so
-          tag_name: ${{ github.ref }}
+          tag_name: ${{ github.event.inputs.tag || github.ref }}
           name: gmsv_gm_maskfs_linux64.dll
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -88,7 +88,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: target/i686-pc-windows-msvc/release/gm_maskfs.dll
-          tag_name: ${{ github.ref }}
+          tag_name: ${{ github.event.inputs.tag || github.ref }}
           name: gmsv_gm_maskfs_win32.dll
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -112,7 +112,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: target/x86_64-pc-windows-msvc/release/gm_maskfs.dll
-          tag_name: ${{ github.ref }}
+          tag_name: ${{ github.event.inputs.tag || github.ref }}
           name: gmsv_gm_maskfs_win64.dll
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
